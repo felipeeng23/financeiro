@@ -1,31 +1,31 @@
-# MongoDB - Projeto de Integração e Consultas com Pandas
+# Projeto de Consulta e Filtragem de Dados com MongoDB e Pandas
 
-Este repositório tem como objetivo demonstrar a integração entre um banco de dados **MongoDB Atlas** e o ambiente **Python** com uso do **pandas**, para fins de manipulação, análise e exibição de dados estruturados em coleções.
+Este projeto tem como objetivo realizar a extração, transformação e visualização de dados a partir de coleções armazenadas em uma base MongoDB Atlas, utilizando a linguagem Python e a biblioteca Pandas.
 
-## 🔍 Sobre o Projeto
-
-Foram utilizadas cinco coleções principais:
-
-- `cliente`
-- `fornecedor`
-- `pagamento`
-- `recebimento`
-- `banco`
-
-O projeto realiza a conexão com o MongoDB Atlas, consulta os dados das coleções e aplica filtros ou transformações conforme a necessidade, exibindo os resultados em DataFrames pandas.
-
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - Python 3.x
 - Pandas
 - PyMongo
 - MongoDB Atlas
 
-## 📁 Estrutura das Coleções (Exemplos de Documentos)
+## Coleções Utilizadas
 
-### 🧾 Cliente
+O projeto utiliza as seguintes coleções:
+
+- `cliente`
+- `fornecedor`
+- `banco`
+- `pagamento`
+- `recebimento`
+
+Cada uma dessas coleções contém informações específicas:
+
+### Exemplo de documento da coleção `cliente`:
+
 ```json
 {
+  "_id": ObjectId("..."),
   "Id Cliente": 1,
   "Razao Social": "00_VPCOM",
   "Nome Fantasia": "VENTOS POTIGUARES COMERCIALIZADORA...",
@@ -35,100 +35,51 @@ O projeto realiza a conexão com o MongoDB Atlas, consulta os dados das coleçõ
 }
 ```
 
-### 🧾 Fornecedor
-```json
-{
-  "Id Fornecedor": 1,
-  "Razao Social": "AGROBOI",
-  "Nome Fantasia": "AGRO BOI IMPORTACAO E EXPORTACAO...",
-  "Tipo Pessoa": "Pessoa Jurídica",
-  "Municipio": "RIO DE JANEIRO",
-  "UF": "RIO DE JANEIRO"
-}
-```
+## Funcionalidades Implementadas
 
-### 💰 Pagamento
-```json
-{
-  "Id Fornecedor": 9,
-  "Id Conta Bancária": "x 80771218846-00",
-  "Data de Emissao": "1/11/2018",
-  "Data de Vencimento": "1/16/2018",
-  "Data da Movimentação": "1/11/2018",
-  "Valor da Movimentação": "19540,71"
-}
-```
+### ✅ Consulta: Clientes da cidade de São Paulo
 
-### 💵 Recebimento
-```json
-{
-  "Id Cliente": 53,
-  "Id Conta Bancária": "x 10859524552-06",
-  "Data de Emissao": "1/2/2018",
-  "Data de Vencimento": "1/2/2018",
-  "Data da Movimentação": "1/2/2018",
-  "Valor da Movimentação": "675,87"
-}
-```
-
-### 🏦 Banco
-```json
-{
-  "Id Banco": 1,
-  "Id Conta Bancária": "x 14057272557-06",
-  "Nome Banco": "BANCO DO BRASIL - SAO PAULO",
-  "Município": "SAO PAULO",
-  "UF": "SÃO PAULO"
-}
-```
-
-## 📊 Exemplos de Consultas
-
-### ✅ Clientes de São Paulo
 ```python
 df_clientes_sp = df_clientes[df_clientes['Municipio'].str.upper() == 'SAO PAULO']
+print(df_clientes_sp)
 ```
 
-### ✅ Fornecedores Pessoa Física
+---
+
+### ✅ Consulta: Fornecedores Pessoa Física
+
 ```python
 df_fornecedores_pf = df_fornecedores[df_fornecedores['Tipo Pessoa'] == 'Pessoa Física']
+print(df_fornecedores_pf)
 ```
 
-### ✅ Todos os Recebimentos
+---
+
+### ✅ Consulta: Todos os recebimentos
+
 ```python
-df_recebimentos = pd.DataFrame(list(colecao_recebimento.find({})))
+df_recebimentos = pd.DataFrame(recebimentos_data)
+print(df_recebimentos)
 ```
 
-### ✅ Todos os Pagamentos
+---
+
+### ✅ Consulta: Todos os pagamentos
+
 ```python
-df_pagamentos = pd.DataFrame(list(colecao_pagamento.find({})))
+df_pagamentos = pd.DataFrame(pagamentos_data)
+print(df_pagamentos)
 ```
 
-## ⚙️ Como Executar
+---
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
-   cd nome-do-repositorio
-   ```
+## Conectando-se ao MongoDB Atlas
 
-2. Instale as dependências:
-   ```bash
-   pip install pandas pymongo
-   ```
+O projeto realiza a conexão ao cluster do MongoDB Atlas com `pymongo.MongoClient` para coletar os dados das coleções dinamicamente e gerar os DataFrames a partir disso.
 
-3. Configure a string de conexão do MongoDB Atlas no script:
-   ```python
-   MongoClient("mongodb+srv://<usuario>:<senha>@<seu_cluster>.mongodb.net/")
-   ```
+---
 
-4. Execute os scripts desejados.
+## Contato
 
-## 📌 Observações
-
-- Certifique-se de que seu cluster no MongoDB Atlas está ativo e com IP autorizado.
-- Os dados sensíveis foram removidos por questões de segurança.
-
-## 📬 Contato
-
-Caso tenha dúvidas ou sugestões, entre em contato via [seu e-mail ou LinkedIn].
+- [LinkedIn - Felipe Souza de Oliveira](https://www.linkedin.com/in/felipe-souza-de-oliveira/)
+- [GitHub - felipeeng23](https://github.com/felipeeng23)
